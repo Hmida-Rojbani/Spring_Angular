@@ -2,18 +2,22 @@ package com.soft.app.data.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "teacher_table")
 @Data
+@ToString(exclude = "laptop")
 public class Teacher {
 	
 	@Id
@@ -27,6 +31,9 @@ public class Teacher {
 	private String lastName;
 	private int score;
 	private LocalDate dateOfBirth;
+	
+	@OneToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+	private Laptop laptop;
 	
 
 }

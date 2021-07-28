@@ -6,7 +6,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.soft.app.data.entity.Laptop;
 import com.soft.app.data.entity.Teacher;
+import com.soft.app.data.repos.LaptopRepository;
 import com.soft.app.data.repos.TeacherRepository;
 
 import lombok.AllArgsConstructor;
@@ -14,23 +16,31 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
 	
-	private TeacherRepository repos;
+	private TeacherRepository reposTeacher;
+	private LaptopRepository reposLap;
 
 	@Override
 	public Teacher getTeacherById(long id) {
-		Optional<Teacher> opt =  repos.findById(id);
-		return opt.orElseThrow(()-> new NoSuchElementException("no teacher found"));
+		Optional<Teacher> opt =  reposTeacher.findById(id);
+		Teacher teacher= opt.orElseThrow(()-> new NoSuchElementException("no teacher found"));
+		
+		System.err.println(teacher.getLaptop());
+		return teacher;
 	}
 
 	@Override
 	public List<Teacher> getTeachers() {
 		
-		return repos.findAll();
+		return reposTeacher.findAll();
 	}
 
 	@Override
 	public Teacher createTeacher(Teacher teacher) {
-		return repos.save(teacher);
+		//Laptop lap = teacher.getLaptop();
+		//lap = reposLap.save(lap);
+		//teacher.setLaptop(lap);
+		teacher= reposTeacher.save(teacher);
+		return teacher;
 	}
 
 	@Override
@@ -48,13 +58,13 @@ public class TeacherServiceImpl implements TeacherService {
 		if(newTeacher.getDateOfBirth()!=null)
 			oldTeacher.setDateOfBirth(newTeacher.getDateOfBirth());
 		
-		return repos.save(oldTeacher);
+		return reposTeacher.save(oldTeacher);
 	}
 
 	@Override
 	public Teacher deleteTeacher(long id) {
 		Teacher teacher = getTeacherById(id);
-		repos.deleteById(id);
+		reposTeacher.deleteById(id);
 		return teacher;
 	}
 
