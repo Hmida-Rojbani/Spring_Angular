@@ -33,4 +33,29 @@ public class TeacherServiceImpl implements TeacherService {
 		return repos.save(teacher);
 	}
 
+	@Override
+	public Teacher updateTeacher(Teacher newTeacher, long id) {
+		Teacher oldTeacher = getTeacherById(id);
+		
+		if(newTeacher.getMatricule()!=null)
+			oldTeacher.setMatricule(newTeacher.getMatricule());
+		if(newTeacher.getLastName()!=null)
+			oldTeacher.setLastName(newTeacher.getLastName());
+		if(newTeacher.getFirstName()!=null)
+			oldTeacher.setFirstName(newTeacher.getFirstName());
+		if(newTeacher.getScore()>0)
+			oldTeacher.setScore(newTeacher.getScore());
+		if(newTeacher.getDateOfBirth()!=null)
+			oldTeacher.setDateOfBirth(newTeacher.getDateOfBirth());
+		
+		return repos.save(oldTeacher);
+	}
+
+	@Override
+	public Teacher deleteTeacher(long id) {
+		Teacher teacher = getTeacherById(id);
+		repos.deleteById(id);
+		return teacher;
+	}
+
 }

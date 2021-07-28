@@ -9,5 +9,7 @@ public interface TeacherService {
 	Teacher getTeacherById(long id);
 	List<Teacher> getTeachers();
 	Teacher createTeacher(Teacher teacher);
+	Teacher updateTeacher(Teacher teacher, long id);
+	Teacher deleteTeacher(long id);
 
 }
