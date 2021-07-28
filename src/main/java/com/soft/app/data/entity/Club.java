@@ -21,7 +21,7 @@ public class Club {
 	private String name;
 	private int nbMembres;
 	
-	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Teacher responsable;
 
