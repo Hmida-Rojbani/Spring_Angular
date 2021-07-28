@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,8 +42,10 @@ public class Teacher {
 	private Laptop laptop;
 	
 	
-	@OneToMany(mappedBy = "responsable")
+	@OneToMany(mappedBy = "teacher")
 	private List<Club> clubs;
 	
+	@ManyToMany(mappedBy = "teachers")
+	private List<ClassRoom> classRooms;
 
 }

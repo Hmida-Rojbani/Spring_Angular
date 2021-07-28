@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soft.app.data.entity.Teacher;
+import com.soft.app.dto.models.TeacherRequest;
+import com.soft.app.dto.models.TeacherResponse;
 import com.soft.app.service.TeacherService;
 
 import lombok.AllArgsConstructor;
@@ -28,9 +30,9 @@ public class TeacherController {
 	private TeacherService service;
 	
 	@PostMapping()
-	public ResponseEntity<Teacher> addTeacher(@RequestBody Teacher teacher) {
-		Teacher newTeacher= service.createTeacher(teacher);
-		return new ResponseEntity<Teacher>(newTeacher, HttpStatus.CREATED);
+	public ResponseEntity<TeacherResponse> addTeacher(@RequestBody TeacherRequest teacher) {
+		TeacherResponse newTeacher= service.createTeacher(teacher);
+		return new ResponseEntity<TeacherResponse>(newTeacher, HttpStatus.CREATED);
 	}
 	
 	@GetMapping()
@@ -39,7 +41,7 @@ public class TeacherController {
 	}
 	
 	@GetMapping("/id/{code}")
-	public Teacher getTeacherWithId(@PathVariable("code") long id){
+	public TeacherResponse getTeacherWithId(@PathVariable("code") long id){
 		return service.getTeacherById(id);
 	}
 	

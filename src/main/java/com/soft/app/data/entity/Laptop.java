@@ -10,9 +10,11 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
+@ToString(exclude = "teacher")
 public class Laptop {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +25,6 @@ public class Laptop {
 	private String ram;
 	
 	@OneToOne(mappedBy = "laptop")
-	@JsonIgnore
 	private Teacher teacher;
 
 }
