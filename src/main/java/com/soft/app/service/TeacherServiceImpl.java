@@ -6,8 +6,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.soft.app.data.entity.Laptop;
+import com.soft.app.data.entity.Club;
 import com.soft.app.data.entity.Teacher;
+import com.soft.app.data.repos.ClubRepository;
 import com.soft.app.data.repos.LaptopRepository;
 import com.soft.app.data.repos.TeacherRepository;
 
@@ -18,13 +19,14 @@ public class TeacherServiceImpl implements TeacherService {
 	
 	private TeacherRepository reposTeacher;
 	private LaptopRepository reposLap;
+	private ClubRepository reposClub;
 
 	@Override
 	public Teacher getTeacherById(long id) {
 		Optional<Teacher> opt =  reposTeacher.findById(id);
 		Teacher teacher= opt.orElseThrow(()-> new NoSuchElementException("no teacher found"));
 		
-		System.err.println(teacher.getLaptop());
+		System.err.println(teacher.getClubs());
 		return teacher;
 	}
 
@@ -39,7 +41,12 @@ public class TeacherServiceImpl implements TeacherService {
 		//Laptop lap = teacher.getLaptop();
 		//lap = reposLap.save(lap);
 		//teacher.setLaptop(lap);
-		teacher= reposTeacher.save(teacher);
+		Teacher teacherNew= reposTeacher.save(teacher);
+		for (Club c : teacher.getClubs()) {
+			c.setResponsable(teacherNew);
+			reposClub.save(c);
+		}
+				 
 		return teacher;
 	}
 

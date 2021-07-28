@@ -1,6 +1,7 @@
 package com.soft.app.data.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,8 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.ToString;
@@ -17,7 +21,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "teacher_table")
 @Data
-@ToString(exclude = "laptop")
+@ToString(exclude = {"laptop","clubs"})
 public class Teacher {
 	
 	@Id
@@ -34,6 +38,10 @@ public class Teacher {
 	
 	@OneToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
 	private Laptop laptop;
+	
+	
+	@OneToMany(mappedBy = "responsable")
+	private List<Club> clubs;
 	
 
 }
