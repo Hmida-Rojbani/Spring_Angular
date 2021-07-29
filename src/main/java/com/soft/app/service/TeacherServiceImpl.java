@@ -27,6 +27,7 @@ public class TeacherServiceImpl implements TeacherService {
 	private LaptopRepository reposLap;
 	private ClubRepository reposClub;
 	private ClassRoomRepository reposClass;
+	private ModelMapper mapper;
 
 	
 	private Teacher findTeacherById(long id) {
@@ -43,7 +44,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public TeacherResponse createTeacher(TeacherRequest teacherRequest) {
-		ModelMapper mapper = new ModelMapper();
+		
 		//Laptop lap = teacher.getLaptop();
 		//lap = reposLap.save(lap);
 		//teacher.setLaptop(lap);
@@ -103,7 +104,6 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public TeacherResponse getTeacherById(long id) {
-		ModelMapper mapper = new ModelMapper();
 		return mapper.map(findTeacherById(id), TeacherResponse.class);
 	}
 

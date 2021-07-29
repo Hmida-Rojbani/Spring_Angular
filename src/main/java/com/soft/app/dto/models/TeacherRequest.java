@@ -7,11 +7,18 @@ import org.modelmapper.ModelMapper;
 
 import com.soft.app.data.entity.Laptop;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
 public class TeacherRequest {
 
+	@NotBlank
+	@Size(min = 4)
 	private String matricule;
 
 	private String firstName;
